@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ꥁᝎꥁӋ⟡⎍Δ⟡Δ 𓄠⎍ ꥁᝎӋ⟡𓂇Ӌ⧉ꥁ𓄠⋉𓄠⧉⎍</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            text-align: center;
+            padding: 20px;
+        }
+        textarea {
+            width: 45%;
+            height: 200px;
+            margin: 10px;
+            font-size: 18px;
+            resize: none; /* Prevents resizing of the textarea */
+        }
+    </style>
+</head>
+<body>
+    <h1>᮵᮵᮵</h1>
+    <textarea id="englishText" placeholder="TYPE"></textarea>
+    <textarea id="customText" placeholder="⋉ᝉӋ⟡"></textarea>
+    <script>
+        const alphabet = {
+            'A': 'ᝀ', 'B': 'ᮘ', 'C': '𒑛', 'D': 'Δ', 'E': '⟡', 'F': 'ʃ',
+            'G': 'Ӷ', 'H': '𐋣', 'I': '𓄠', 'J': 'ᛡ', 'K': 'ᛯ', 'L': '𓏶',
+            'M': 'ꤻ', 'N': '⎍', 'O': '⧉', 'P': 'Ӌ', 'Q': '𖭦', 'R': '𓂇',
+            'S': 'ꥁ', 'T': '⋉', 'U': 'ᝎ', 'V': '⋌', 'W': 'ᝆ', 'X': '𖭿',
+            'Y': 'ᝉ', 'Z': '𒓻',
+            '!': '𓋎', '?': '꛷',
+            '0': '႐', '1': '𐪊', '2': '⛡', '3': '᮳', '4': '𞣊', '5': '᮵',
+            '6': '߆', '7': '𐄍', '8': '୮', '9': '୯'
+        };
+        buttons = "<br>"
+        for (var i = 0; i < Object.entries(alphabet).length; i++){
+            c = Object.entries(alphabet)[i][0] + "/" + Object.entries(alphabet)[i][1]
+            buttons += '<button onclick="setLetter(\'' + Object.entries(alphabet)[i][1] + '\');">' + c + '</button>';
+        }
+        document.body.innerHTML += buttons;
+        const reverseAlphabet = Object.fromEntries(
+            Object.entries(alphabet).map(([key, value]) => [value, key])
+        );
+
+        const englishText = document.getElementById('englishText');
+        const customText = document.getElementById('customText');
+
+        function translateToCustom(text) {
+            return Array.from(text).map(char => {
+                const upperChar = char.toUpperCase();
+                return alphabet[upperChar] || char;
+            }).join('');
+        }
+
+        function translateToEnglish(text) {
+            return Array.from(text).map(char => reverseAlphabet[char] || char).join('');
+        }
+
+        englishText.addEventListener('input', () => {
+            const input = englishText.value;
+            customText.value = translateToCustom(input);
+        });
+
+        customText.addEventListener('input', () => {
+            const input = customText.value;
+            englishText.value = translateToEnglish(input);
+        });
+
+        function setLetter(letter) {
+            document.getElementById("customText").value += letter;
+            const input = customText.value;
+            englishText.value = translateToEnglish(input);
+        }
+        
+    </script>
+</body>
+</html>
